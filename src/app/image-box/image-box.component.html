@@ -1,0 +1,23 @@
+<div class="card-container">
+  <mat-card class="image-card">
+    <mat-card-header>
+      <mat-card-title>Image</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="imageForm">
+        <mat-form-field class="full-width">
+          <mat-label>Filename</mat-label>
+          <input matInput disabled value="{{fileSelect}}">
+        </mat-form-field>
+        &nbsp;&nbsp;
+        <input type="file" name="file" id="file" class="inputfile" accept="image/*"
+          (change)="onSelectFile($event.target.files)" formControlName="fileData">
+        <label for="file">Select</label>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="uploadFiles()">Upload</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="uploading"></mat-progress-bar>
