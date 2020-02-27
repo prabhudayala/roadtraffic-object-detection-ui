@@ -1,11 +1,25 @@
 <div class="card-container">
-  <mat-card>
+  <mat-card class="live-card">
     <mat-card-header>
-      <mat-card-title>Live</mat-card-title>
+      <mat-card-title>Live Stream</mat-card-title>
     </mat-card-header>
-    <mat-card-content></mat-card-content>
+    <mat-card-content>
+      <video #videoElement [src]=""></video>
+      <canvas #myCanvas id="myCanvas"></canvas>
+    </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary">Click</button>
+      <button mat-raised-button color="primary" (click)="streamVideo(1)">Stream</button>
+      <button mat-raised-button color="primary" (click)="streamVideo(0)">Stop</button>
     </mat-card-actions>
   </mat-card>
+
+  <mat-card class="replaycard">
+    <mat-card-header>
+      <mat-card-title>Replay Stream</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <canvas #myRepCanvas id="myRepCanvas"></canvas>
+    </mat-card-content>
+  </mat-card>
 </div>
+<!-- <mat-progress-bar mode="indeterminate" *ngIf="uploading"></mat-progress-bar> -->

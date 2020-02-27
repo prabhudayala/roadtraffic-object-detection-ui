@@ -15,7 +15,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AboutComponent } from './about/about.component';
+import { NotifierComponent } from './notifier/notifier.component';
+import { WindowRef } from './windowRef';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'http://localhost:5000', options: { transports: ['websocket', 'polling', 'flashsocket'] } };
 
 @NgModule({
   declarations: [
@@ -23,7 +29,8 @@ import { AboutComponent } from './about/about.component';
     ImageBoxComponent,
     VideoBoxComponent,
     LiveBoxComponent,
-    AboutComponent
+    AboutComponent,
+    NotifierComponent
   ],
   imports: [
     BrowserModule,
@@ -37,10 +44,12 @@ import { AboutComponent } from './about/about.component';
     MatInputModule,
     HttpClientModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule,
+    SocketIoModule.forRoot(config)
   ],
-  providers: [],
-  entryComponents: [AboutComponent],
+  providers: [WindowRef],
+  entryComponents: [AboutComponent, NotifierComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
