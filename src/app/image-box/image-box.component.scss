@@ -1,4 +1,5 @@
-.image-card {
+.image-card,
+.image-out-card {
   width: 60vw;
 }
 
@@ -38,4 +39,12 @@
 .mat-card-actions {
   display: flex;
   flex-direction: row-reverse;
+}
+
+#outimage {
+  height: 40vh;
+}
+
+.image-out-card {
+  margin-top: 1%;
 }

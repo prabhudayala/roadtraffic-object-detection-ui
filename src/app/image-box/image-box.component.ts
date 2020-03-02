@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AppService } from '../app.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-image-box',
@@ -15,7 +16,11 @@ export class ImageBoxComponent implements OnInit {
   imageFormData = new FormData();
   uploading = false;
   allowUpload = false;
-  constructor(private formBuilder: FormBuilder, private appSvc: AppService) { }
+  displayOutput = false;
+  outputImage;
+  public context: CanvasRenderingContext2D;
+
+  constructor(private formBuilder: FormBuilder, private appSvc: AppService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.imageForm = this.formBuilder.group({
@@ -37,14 +42,20 @@ export class ImageBoxComponent implements OnInit {
       console.log(event);
       setTimeout(() => {
         this.uploading = false;
+        this.displayOutput = true;
         this.appSvc.openSnackBar({ msg: 'Upload Successful', type: 'SUCCESS' });
+        this.showOutput(event.data);
       }, 800);
     }, error => {
       console.log(error);
       this.uploading = false;
-
       this.appSvc.openSnackBar({ msg: 'Upload Failed', type: 'ERROR' });
     })
+  }
+
+  showOutput = (data) => {
+    let image = data.split('\'')[1];
+    this.outputImage = 'data:image/jpeg;base64,' + image;
   }
 
 }
